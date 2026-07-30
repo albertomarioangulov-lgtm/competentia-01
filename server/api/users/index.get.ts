@@ -36,8 +36,9 @@ export default defineEventHandler(async (event) => {
 
   const total = await User.countDocuments(filter)
   const users = await User.find(filter)
-    .select('name email roles bossId createdAt updatedAt')
+    .select('name email roles bossId positionId createdAt updatedAt')
     .populate('bossId', 'name email')
+    .populate('positionId', 'name')
     .sort({ [sortBy]: sortOrder } as any)
     .skip((page - 1) * limit)
     .limit(limit)
@@ -50,6 +51,8 @@ export default defineEventHandler(async (event) => {
       email: user.email,
       roles: user.roles ?? [],
       bossId: user.bossId ? (typeof user.bossId === 'object' && user.bossId._id ? (user.bossId._id as any).toString?.() ?? null : (user.bossId as any).toString?.() ?? null) : null,
+      positionId: user.positionId ? (typeof user.positionId === 'object' && (user.positionId as any)._id ? ((user.positionId as any)._id as any).toString?.() ?? null : (user.positionId as any).toString?.() ?? null) : null,
+      positionName: user.positionId && typeof user.positionId === 'object' ? (user.positionId as any).name ?? null : null,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     })),

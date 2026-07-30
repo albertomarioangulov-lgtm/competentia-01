@@ -15,8 +15,11 @@ export default defineEventHandler(async (event) => {
     evaluadorId,
     fecha: body.fecha || new Date(),
     cargo: body.cargo,
+    templateId: body.templateId || null,
+    positionId: body.positionId || null,
     habilidades: body.habilidades,
     desempeno: body.desempeno,
+    dynamicScores: body.dynamicScores ?? [],
     recomendaciones: body.recomendaciones || '',
   })
 

@@ -9,6 +9,7 @@ const updateUserSchema = z.object({
   password: z.string().min(6).optional(),
   roles: z.string().optional(),
   bossId: z.string().nullable().optional(),
+  positionId: z.string().nullable().optional(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -34,7 +35,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { name, email, password, roles, bossId } = result.data
+  const { name, email, password, roles, bossId, positionId } = result.data
 
   const user = await User.findById(id)
   if (!user) {
@@ -75,6 +76,16 @@ export default defineEventHandler(async (event) => {
     user.bossId = bossId as any
   }
 
+  if (positionId !== undefined) {
+    if (positionId !== null && !positionId.match(/^[0-9a-fA-F]{24}$/)) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid position ID',
+      })
+    }
+    user.positionId = positionId as any
+  }
+
   try {
     await user.save()
   } catch (err: any) {
@@ -105,6 +116,7 @@ export default defineEventHandler(async (event) => {
     email: user.email,
     roles: user.roles,
     bossId: user.bossId?.toString?.() ?? null,
+    positionId: user.positionId?.toString?.() ?? null,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   }

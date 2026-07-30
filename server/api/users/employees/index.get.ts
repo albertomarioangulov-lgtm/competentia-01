@@ -17,7 +17,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const employees = await User.find(filter)
-    .select('name email roles bossId')
+    .select('name email roles bossId positionId')
+    .populate('positionId', 'name')
     .sort({ name: 1 })
     .lean()
 
@@ -27,5 +28,7 @@ export default defineEventHandler(async (event) => {
     email: emp.email,
     roles: emp.roles ?? [],
     bossId: emp.bossId?.toString?.() ?? null,
+    positionId: emp.positionId?._id?.toString?.() ?? emp.positionId?.toString?.() ?? null,
+    positionName: emp.positionId?.name ?? null,
   }))
 })

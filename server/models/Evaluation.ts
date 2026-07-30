@@ -10,11 +10,26 @@ const desempenoSchema = new Schema({
   puntaje: { type: Number, default: null },
 }, { _id: false })
 
+const dynamicScoreItemSchema = new Schema({
+  itemId: { type: String, required: true },
+  itemDescription: { type: String, default: '' },
+  score: { type: Number, default: null },
+}, { _id: false })
+
+const dynamicScoreSectionSchema = new Schema({
+  sectionId: { type: String, required: true },
+  sectionTitle: { type: String, default: '' },
+  sectionWeight: { type: Number, default: 0 },
+  items: [dynamicScoreItemSchema],
+}, { _id: false })
+
 const evaluationSchema = new Schema({
   empleadoId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   evaluadorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   fecha: { type: Date, default: Date.now },
   cargo: String,
+  templateId: { type: Schema.Types.ObjectId, ref: 'EvaluationTemplate', default: null },
+  positionId: { type: Schema.Types.ObjectId, ref: 'Position', default: null },
   habilidades: {
     metahabilidades: [habilidadSchema],
     betahabilidades: [habilidadSchema],
@@ -23,6 +38,7 @@ const evaluationSchema = new Schema({
     habilidadesDirectivas: [habilidadSchema],
   },
   desempeno: [desempenoSchema],
+  dynamicScores: [dynamicScoreSectionSchema],
   recomendaciones: String,
 }, { timestamps: true })
 

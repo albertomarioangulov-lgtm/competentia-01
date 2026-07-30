@@ -9,6 +9,7 @@ const userSchema = new Schema({
   googleId: String,
   roles: { type: [String] },
   bossId: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  positionId: { type: Schema.Types.ObjectId, ref: 'Position', default: null },
 }, { timestamps: true });
 
 userSchema.statics.encryptPassword = async (password) => {

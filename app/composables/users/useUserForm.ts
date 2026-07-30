@@ -7,6 +7,7 @@ export const userFormSchema = z.object({
   password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres').optional().or(z.literal('')),
   roles: z.string().optional(),
   bossId: z.string().nullable().optional(),
+  positionId: z.string().nullable().optional(),
 })
 
 export type UserFormData = z.infer<typeof userFormSchema>
@@ -53,6 +54,7 @@ export const useUserForm = () => {
       password?: string
       roles: string
       bossId?: string | null
+      positionId?: string | null
     },
     userId?: string
   ) => {
@@ -84,6 +86,10 @@ export const useUserForm = () => {
 
       if (formData.bossId !== undefined) {
         body.bossId = formData.bossId
+      }
+
+      if (formData.positionId !== undefined) {
+        body.positionId = formData.positionId
       }
 
       await $fetch(url, { method, body })

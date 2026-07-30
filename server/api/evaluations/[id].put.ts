@@ -16,8 +16,11 @@ export default defineEventHandler(async (event) => {
     id,
     {
       cargo: body.cargo,
+      templateId: body.templateId || null,
+      positionId: body.positionId || null,
       habilidades: body.habilidades,
       desempeno: body.desempeno,
+      dynamicScores: body.dynamicScores ?? [],
       recomendaciones: body.recomendaciones,
     },
     { new: true }

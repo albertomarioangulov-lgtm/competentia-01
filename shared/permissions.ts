@@ -47,6 +47,14 @@ export const PERMISSIONS = {
   EVALUATIONS_CREATE: 'evaluations:create',
   EVALUATIONS_UPDATE: 'evaluations:update',
   EVALUATIONS_DELETE: 'evaluations:delete',
+  POSITIONS_READ: 'positions:read',
+  POSITIONS_CREATE: 'positions:create',
+  POSITIONS_UPDATE: 'positions:update',
+  POSITIONS_DELETE: 'positions:delete',
+  TEMPLATES_READ: 'templates:read',
+  TEMPLATES_CREATE: 'templates:create',
+  TEMPLATES_UPDATE: 'templates:update',
+  TEMPLATES_DELETE: 'templates:delete',
 } as const
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]

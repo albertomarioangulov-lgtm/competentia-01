@@ -9,6 +9,7 @@ const createUserSchema = z.object({
   password: z.string().optional(),
   roles: z.string().optional(),
   bossId: z.string().nullable().optional(),
+  positionId: z.string().nullable().optional(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -25,7 +26,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { name, email, password, roles, bossId } = result.data
+  const { name, email, password, roles, bossId, positionId } = result.data
 
   const existingUser = await User.findOne({ email })
   if (existingUser) {
@@ -50,6 +51,7 @@ export default defineEventHandler(async (event) => {
     password: hashedPassword,
     roles: roleList,
     bossId: isEmployee && bossId ? bossId : null,
+    positionId: positionId || null,
   })
 
   return {
@@ -58,6 +60,7 @@ export default defineEventHandler(async (event) => {
     email: user.email,
     roles: user.roles,
     bossId: user.bossId?.toString?.() ?? null,
+    positionId: user.positionId?.toString?.() ?? null,
     createdAt: user.createdAt,
   }
 })

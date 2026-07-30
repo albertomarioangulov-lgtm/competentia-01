@@ -31,6 +31,12 @@ const navItems = computed(() => [
       ...(can(PERMISSIONS.USERS_READ)
         ? [{ title: 'Usuarios', icon: 'mdi-account-multiple-outline', to: '/users' }]
         : []),
+      ...(can(PERMISSIONS.POSITIONS_READ)
+        ? [{ title: 'Positions', icon: 'mdi-briefcase-outline', to: '/positions' }]
+        : []),
+      ...(can(PERMISSIONS.TEMPLATES_READ)
+        ? [{ title: 'Templates', icon: 'mdi-file-document-outline', to: '/templates' }]
+        : []),
       ...(can(PERMISSIONS.EVALUATIONS_READ)
         ? [{ title: 'Evaluaciones', icon: 'mdi-clipboard-check-outline', to: '/evaluations' }]
         : []),

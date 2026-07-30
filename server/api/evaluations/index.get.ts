@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
   const evaluations = await Evaluation.find(filter)
     .populate('empleadoId', 'name email')
     .populate('evaluadorId', 'name email')
+    .populate('positionId', 'name')
     .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(limit)
@@ -45,6 +46,10 @@ export default defineEventHandler(async (event) => {
         : null,
       fecha: ev.fecha,
       cargo: ev.cargo,
+      templateId: ev.templateId?.toString?.() ?? null,
+      positionId: ev.positionId?._id?.toString?.() ?? ev.positionId?.toString?.() ?? null,
+      positionName: ev.positionId?.name ?? null,
+      dynamicScores: ev.dynamicScores ?? [],
       createdAt: ev.createdAt,
     })),
     total,

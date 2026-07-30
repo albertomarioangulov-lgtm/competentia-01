@@ -50,11 +50,15 @@ const form = reactive({
   password: '',
   roles: [] as string[],
   bossId: null as string | null,
+  positionId: null as string | null,
 })
 
 // Lista de jefes disponibles (solo usuarios con rol manager)
 const managers = ref<any[]>([])
 const loadingManagers = ref(false)
+
+const positions = ref<any[]>([])
+const loadingPositions = ref(false)
 
 const fetchManagers = async () => {
   loadingManagers.value = true
@@ -69,6 +73,18 @@ const fetchManagers = async () => {
   }
 }
 
+const fetchPositions = async () => {
+  loadingPositions.value = true
+  try {
+    const res = await fetch('/api/positions?active=true')
+    if (res.ok) {
+      positions.value = await res.json()
+    }
+  } finally {
+    loadingPositions.value = false
+  }
+}
+
 const isEmployee = computed(() => form.roles.includes('employee'))
 
 watch(selectedUser, (newUser) => {
@@ -78,12 +94,14 @@ watch(selectedUser, (newUser) => {
     form.password = ''
     form.roles = newUser.roles ?? []
     form.bossId = newUser.bossId ?? null
+    form.positionId = newUser.positionId ?? null
   } else {
     form.name = ''
     form.email = ''
     form.password = ''
     form.roles = []
     form.bossId = null
+    form.positionId = null
   }
 }, { immediate: true })
 
@@ -92,6 +110,7 @@ watch(isFormOpen, (isOpen) => {
     submitError.value = ''
     fieldErrors.value = {}
     fetchManagers()
+    fetchPositions()
     // Si estamos creando (no hay selectedUser), resetear el objeto form
     if (!selectedUser.value) {
       form.name = ''
@@ -99,6 +118,7 @@ watch(isFormOpen, (isOpen) => {
       form.password = ''
       form.roles = []
       form.bossId = null
+      form.positionId = null
     }
   }
 })
@@ -116,6 +136,7 @@ const submit = async () => {
       password: form.password,
       roles: form.roles.join(', '),
       bossId: isEmployee.value ? form.bossId : null,
+      positionId: form.positionId,
     },
     selectedUser.value?.id
   )
@@ -205,6 +226,21 @@ const submit = async () => {
                   />
                 </template>
               </v-select>
+            </v-col>
+
+            <v-col cols="12" md="12">
+              <v-select
+                v-model="form.positionId"
+                label="Position"
+                outlined
+                :items="positions"
+                item-title="name"
+                item-value="id"
+                :loading="loadingPositions"
+                clearable
+                hint="Select the employee's position"
+                persistent-hint
+              />
             </v-col>
 
             <v-col v-if="isEmployee" cols="12" md="12">
