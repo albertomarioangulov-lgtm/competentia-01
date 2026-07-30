@@ -351,11 +351,11 @@ export const CRITERIOS_DESEMPENO: Habilidad[] = [
 // ============================================================
 
 export const NIVELES = [
-  { valor: 1, label: '1', color: 'red', descripcion: 'No cumple', icono: 'mdi-star-outline' },
-  { valor: 2, label: '2', color: 'orange', descripcion: 'Por debajo de lo esperado', icono: 'mdi-star-half-full' },
-  { valor: 3, label: '3', color: 'warning', descripcion: 'Cumple lo esperado', icono: 'mdi-star' },
-  { valor: 4, label: '4', color: 'light-blue', descripcion: 'Supera lo esperado', icono: 'mdi-star' },
-  { valor: 5, label: '5', color: 'green', descripcion: 'Excede significativamente', icono: 'mdi-star' },
+  { valor: 1, label: '1', color: 'red', descripcion: 'Deficiente', icono: 'mdi-star-outline' },
+  { valor: 2, label: '2', color: 'orange', descripcion: 'Regular', icono: 'mdi-star-half-full' },
+  { valor: 3, label: '3', color: 'warning', descripcion: 'Bueno', icono: 'mdi-star' },
+  { valor: 4, label: '4', color: 'light-blue', descripcion: 'Muy bueno', icono: 'mdi-star' },
+  { valor: 5, label: '5', color: 'green', descripcion: 'Excelente', icono: 'mdi-star' },
 ] as const
 
 export const PUNTAJE_MAXIMO = 5

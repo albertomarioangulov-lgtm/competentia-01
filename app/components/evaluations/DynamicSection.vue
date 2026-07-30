@@ -10,11 +10,11 @@ const emit = defineEmits<{
 }>()
 
 const niveles = [
-  { valor: 1, label: '1', color: 'red', descripcion: 'No cumple' },
-  { valor: 2, label: '2', color: 'orange', descripcion: 'Por debajo' },
-  { valor: 3, label: '3', color: 'warning', descripcion: 'Cumple' },
-  { valor: 4, label: '4', color: 'light-blue', descripcion: 'Supera' },
-  { valor: 5, label: '5', color: 'green', descripcion: 'Excede' },
+  { valor: 1, label: '1', color: 'red', descripcion: 'Deficiente' },
+  { valor: 2, label: '2', color: 'orange', descripcion: 'Regular' },
+  { valor: 3, label: '3', color: 'warning', descripcion: 'Bueno' },
+  { valor: 4, label: '4', color: 'light-blue', descripcion: 'Muy bueno' },
+  { valor: 5, label: '5', color: 'green', descripcion: 'Excelente' },
 ]
 
 const getScore = (sectionId: string, itemId: string): number | null => {
@@ -41,11 +41,11 @@ const setScore = (sectionId: string, itemId: string, score: number | null) => {
     </p>
 
     <p class="text-caption text-grey mb-3">
-      <v-icon start size="x-small" color="red" class="mb-1">mdi-star-outline</v-icon> 1 No cumple ·
-      <v-icon start size="x-small" color="orange" class="mb-1">mdi-star-half-full</v-icon> 2 Por debajo ·
-      <v-icon start size="x-small" color="warning" class="mb-1">mdi-star</v-icon> 3 Cumple ·
-      <v-icon start size="x-small" color="light-blue" class="mb-1">mdi-star</v-icon> 4 Supera ·
-      <v-icon start size="x-small" color="green" class="mb-1">mdi-star</v-icon> 5 Excede
+      <v-icon start size="x-small" color="red" class="mb-1">mdi-star-outline</v-icon> 1 Deficiente ·
+      <v-icon start size="x-small" color="orange" class="mb-1">mdi-star-half-full</v-icon> 2 Regular ·
+      <v-icon start size="x-small" color="warning" class="mb-1">mdi-star</v-icon> 3 Bueno ·
+      <v-icon start size="x-small" color="light-blue" class="mb-1">mdi-star</v-icon> 4 Muy bueno ·
+      <v-icon start size="x-small" color="green" class="mb-1">mdi-star</v-icon> 5 Excelente
     </p>
 
     <v-row>
