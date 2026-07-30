@@ -9,3 +9,5 @@
 
 import './User'
 import './Evaluation'
+import './Position'
+import './EvaluationTemplate'
